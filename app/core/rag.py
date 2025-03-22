@@ -7,10 +7,8 @@ from .config import settings
 
 class RAGSystem:
     def __init__(self):
-        # 直接使用HuggingFace模型名称（去掉sentence-transformers前缀）
         self.embeddings = HuggingFaceEmbeddings(
-            model_name=settings.EMBEDDING_MODEL,
-            
+            model_name=settings.EMBEDDING_MODEL
         )
         self.vector_store = None
         self.llm = OpenAI(openai_api_key=settings.OPENAI_API_KEY) if settings.LLM_MODEL == "openai" else None
