@@ -18,7 +18,10 @@ async def upload_file(file: UploadFile = File(...)):
         with open(file_path, "wb") as f:
             f.write(await file.read())
         rag.load_documents(file_path)
-        return {"message": "文件上传并加载成功"}
+        return {
+            "message": "文件上传并加载成功",
+            "index_size": rag.vector_store.index.ntotal  # 显示当前索引包含的文档数
+        }
     except Exception as e:
         raise HTTPException(500, f"文件处理失败: {str(e)}")
 
